@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-PodCastHead (iOS)/Pods-PodCastHead (iOS)-frameworks.sh
+${BUILT_PRODUCTS_DIR}/FeedKit-iOS/FeedKit.framework
+${BUILT_PRODUCTS_DIR}/SwiftAudioPlayer/SwiftAudioPlayer.framework
+${BUILT_PRODUCTS_DIR}/URLImage-iOS/URLImage.framework

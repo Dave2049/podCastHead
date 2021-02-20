@@ -1,0 +1,6 @@
+framework module FeedKit {
+  umbrella header "FeedKit-macOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
