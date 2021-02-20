@@ -1,80 +1,58 @@
 //
 //  ContentView.swift
-//  Shared
+//  PodCastHead
 //
 //  Created by David Schnurr on 24.01.21.
 //
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    
+ /*   var testModel = PodPlayerModel(imageUrl: URL(string: "https://www.buchpodcast.de/kapitel-fuenf/Kapitel_Eins_Folge_B5.mp3")!, mp3Url: URL(string: "https://hwcdn.libsyn.com/p/c/0/e/c0e1b0b925bd42b4/Kapitel_Eins_Folge_63.mp3?c_id=94444499&cs_id=94444499&expiration=1612034584&hwt=b50b1e7e037ae9f91fe84a7b8bf86313")!, text: "Test Title", pub: nil) */
+    var testRss = RssReader(feed: URL(string: "https://buchpodcast.libsyn.com/rss")!, name: "BuchPodcast", episodes: nil, selectedEpisode: nil)
+    
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+     //   PodPlayerView(viewModel: PodPlayerViewModel(model: testModel))
+       
+      /*      GeometryReader{ reader in
+                RssReaderView(viewModel: RssReaderViewModel(model: testRss)).environmentObject(EnvReader(size: reader.size))
+                
             }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
-
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
-            }
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
+        .listStyle(SidebarListStyle())
+        .frame(maxWidth: .infinity, maxHeight: .infinity)*/
+        
+        SplitView()
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
+
+struct SplitView: View {
+    var testRss = RssReader(feed: URL(string: "https://www.patreon.com/rss/Flagrant2?auth=Y8sqzrLfVomD0mVGUf2gX1VRO_X_yWbq")!, name: "BuchPodcast", episodes: nil, selectedEpisode: nil)
+  
+    //
+    var body: some View {
+        #if os(macOS)
+        macOsContentView()
+        #elseif os(iOS)
+        iosOsContentView()
+        #endif
+    }
+    fileprivate func macOsContentView() -> some View {
+        return NavigationView{
+            RssReaderView(viewModel: RssReaderViewModel(model: testRss))
+                .frame(minWidth: 250, idealWidth: 250, maxWidth: 300, maxHeight: .infinity).listStyle(SidebarListStyle()).frame(minWidth: 250, maxWidth: 350)
+        }
+        .frame(minWidth: 800, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
+    }
+    
+    fileprivate func iosOsContentView() -> some View {
+            RssReaderView(viewModel: RssReaderViewModel(model: testRss))
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView()
     }
 }
