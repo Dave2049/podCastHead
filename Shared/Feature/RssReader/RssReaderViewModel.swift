@@ -19,7 +19,7 @@ class RssReaderViewModel: ObservableObject{
 
     private let input = PassthroughSubject<Event, Never>()
     @Published var details = false
-    private static let avPlayer = AVPlayer()
+    static let avPlayer = AVPlayer()
     
     
     init(model: RssReader) {
@@ -32,7 +32,7 @@ class RssReaderViewModel: ObservableObject{
             reduce: Self.reduce,
             scheduler: RunLoop.main,
             feedbacks: [
-                Self.loadFeed(),
+               // Self.loadFeed(),
                 Self.userInput(input: input.eraseToAnyPublisher())
             ]
         )
@@ -125,7 +125,7 @@ extension RssReaderViewModel{
     static func userInput(input: AnyPublisher<Event, Never>) -> Feedback<AppState, Event> {
         Feedback { _ in input }
     }
-    
+    /*
    static func loadFeed() -> Feedback<AppState, Event> {
     Feedback { (state: AppState) -> AnyPublisher<Event, Never> in
         guard case .load(let model) = state else { return Empty().eraseToAnyPublisher() }
@@ -140,11 +140,9 @@ extension RssReaderViewModel{
     
     static func parseFeed(feed: URL) -> AnyPublisher<RssReader, Error> {
        return Future { promise in
-        debugPrint(feed)
-        let parser = FeedParser(URL: feed)
-        let result = parser.parse()
         do {
-        let reader = try parseRSSfeed(result: result, orgFeed: feed)
+            let rssFeed = try RssConverter.loadRssFeed(feed: feed)
+            let reader = try parseRSSfeed(rssFeed: rssFeed, orgFeed: feed)
             promise(.success(reader))
         } catch let error {
             promise(.failure(error))
@@ -154,32 +152,22 @@ extension RssReaderViewModel{
         }.eraseToAnyPublisher()
     }
     
-    static func parseRSSfeed(result: Result<Feed, ParserError>, orgFeed: URL) throws -> RssReader{
-        switch result {
-        case .success(let feed):
+    static func parseRSSfeed(rssFeed: RSSFeed, orgFeed: URL) throws -> RssReader{
+       
         
             // Grab the parsed feed directly as an optional rss, atom or json feed object
-            guard let content = feed.rssFeed else{
-                throw RssExceptions.noRssFormat
-            }
             
-            guard let items = content.items else {
+            
+            guard let items = rssFeed.items else {
                 throw RssExceptions.noEpisodes
             }
             
             let episodes : [PodPlayerModel] = items.compactMap{
                 debugPrint( ($0.iTunes?.iTunesDuration ?? 1) / 60)
-                return PodPlayerModel(imageUrl: getImageURL(image: $0.iTunes?.iTunesImage?.attributes?.href, feedImage: content.image?.url), mp3Url: URL(string: $0.enclosure?.attributes?.url ?? "google.de")!, text: $0.title! , pub: $0.pubDate, player: avPlayer,description: $0.description ?? "", duration: $0.iTunes?.iTunesDuration )
-               
-          //      return PodPlayerModel(imageUrl: URL(string:$0.iTunes?.iTunesImage?.attributes?.href ?? "google.de"), mp3Url: URL(string: "https://hwcdn.libsyn.com/p/c/0/e/c0e1b0b925bd42b4/Kapitel_Eins_Folge_63.mp3?c_id=94444499&cs_id=94444499&expiration=1612034584&hwt=b50b1e7e037ae9f91fe84a7b8bf86313")!, text: $0.title! , pub: $0.pubDate)
+                return PodPlayerModel(imageUrl: getImageURL(image: $0.iTunes?.iTunesImage?.attributes?.href, feedImage: rssFeed.image?.url), mp3Url: URL(string: $0.enclosure?.attributes?.url ?? "google.de")!, text: $0.title! , pub: $0.pubDate, player: avPlayer,description: $0.description ?? "", duration: $0.iTunes?.iTunesDuration )
+          
             }
-            return RssReader(feed: orgFeed, name: content.title!, episodes: episodes, selectedEpisode: nil)
-            
-        case .failure(let error):
-            
-            print(error)
-            throw RssExceptions.noRssFormat
-        }
+            return RssReader(feed: orgFeed, name: rssFeed.title!, episodes: episodes, selectedEpisode: nil)
     }
     
 
@@ -192,15 +180,9 @@ extension RssReaderViewModel{
             return nil
         }
     }
-    
+    */
         //https://hwcdn.libsyn.com/p/c/0/e/c0e1b0b925bd42b4/Kapitel_Eins_Folge_63.mp3?c_id=94444499&cs_id=94444499&expiration=1612034584&hwt=b50b1e7e037ae9f91fe84a7b8bf86313
     
-}
-
-enum RssExceptions: Error{
-    case noRssFormat
-    case noTitle
-    case noEpisodes
 }
 
 

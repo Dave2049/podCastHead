@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
  /*   var testModel = PodPlayerModel(imageUrl: URL(string: "https://www.buchpodcast.de/kapitel-fuenf/Kapitel_Eins_Folge_B5.mp3")!, mp3Url: URL(string: "https://hwcdn.libsyn.com/p/c/0/e/c0e1b0b925bd42b4/Kapitel_Eins_Folge_63.mp3?c_id=94444499&cs_id=94444499&expiration=1612034584&hwt=b50b1e7e037ae9f91fe84a7b8bf86313")!, text: "Test Title", pub: nil) */
-    var testRss = RssReader(feed: URL(string: "https://buchpodcast.libsyn.com/rss")!, name: "BuchPodcast", episodes: nil, selectedEpisode: nil)
+    var testRss = RssReaderEpisodeModel(base: BaseRssReader(feed: URL(string: "https://buchpodcast.libsyn.com/rss")!, name: "BuchPodcast"), episodes: nil, selectedEpisode: nil)
     
     var body: some View {
      //   PodPlayerView(viewModel: PodPlayerViewModel(model: testModel))
@@ -28,8 +28,9 @@ struct ContentView: View {
 
 
 struct SplitView: View {
-    var testRss = RssReader(feed: URL(string: "https://www.patreon.com/rss/Flagrant2?auth=Y8sqzrLfVomD0mVGUf2gX1VRO_X_yWbq")!, name: "BuchPodcast", episodes: nil, selectedEpisode: nil)
-  
+    var testRss = RssReaderEpisodeModel(base: BaseRssReader(feed: URL(string: "https://buchpodcast.libsyn.com/rss")!, name: "BuchPodcast"), episodes: nil, selectedEpisode: nil)
+    var
+    
     //
     var body: some View {
         #if os(macOS)
@@ -40,14 +41,16 @@ struct SplitView: View {
     }
     fileprivate func macOsContentView() -> some View {
         return NavigationView{
-            RssReaderView(viewModel: RssReaderViewModel(model: testRss))
-                .frame(minWidth: 250, idealWidth: 250, maxWidth: 300, maxHeight: .infinity).listStyle(SidebarListStyle()).frame(minWidth: 250, maxWidth: 350)
+            /*RssReaderView(viewModel: RssEpisodeViewModel(model: testRss))
+                .frame(minWidth: 250, idealWidth: 250, maxWidth: 300, maxHeight: .infinity).listStyle(SidebarListStyle()).frame(minWidth: 250, maxWidth: 350) */
+            PodCastRssReaderView(viewModel: <#PodCastReaderVM#>).environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
         .frame(minWidth: 800, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
     }
     
     fileprivate func iosOsContentView() -> some View {
-            RssReaderView(viewModel: RssReaderViewModel(model: testRss))
+        PodCastRssReaderView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+      //  RssReaderView(viewModel: RssEpisodeViewModel(model: testRss))
     }
 }
 

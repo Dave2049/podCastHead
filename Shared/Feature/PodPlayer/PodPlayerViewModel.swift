@@ -21,7 +21,6 @@ class PodPlayerViewModel: ObservableObject{
     
     
     init(model: PodPlayerModel) {
-        model.audioPlayer.status
         state = AppState.stop(model)
         initalizeObserver(player: model.audioPlayer)
         Publishers.system(

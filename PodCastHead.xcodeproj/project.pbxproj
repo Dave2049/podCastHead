@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		42575653C1E3B15918ACADC8 /* Pods_PodCastHead__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16ED050C52E667C32129034B /* Pods_PodCastHead__iOS_.framework */; };
+		BC21F4F925E18722003F97D0 /* BaseRssReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F4F825E18722003F97D0 /* BaseRssReaderModel.swift */; };
+		BC21F4FA25E18722003F97D0 /* BaseRssReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F4F825E18722003F97D0 /* BaseRssReaderModel.swift */; };
+		BC21F50B25E18949003F97D0 /* RssEpisodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F50A25E18949003F97D0 /* RssEpisodeViewModel.swift */; };
+		BC21F50C25E18949003F97D0 /* RssEpisodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F50A25E18949003F97D0 /* RssEpisodeViewModel.swift */; };
+		BC21F51E25F166B0003F97D0 /* PodCastRssReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F51D25F166B0003F97D0 /* PodCastRssReaderView.swift */; };
+		BC21F51F25F166B0003F97D0 /* PodCastRssReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F51D25F166B0003F97D0 /* PodCastRssReaderView.swift */; };
+		BC21F52525F16BD1003F97D0 /* PodCastReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F52425F16BD1003F97D0 /* PodCastReaderModel.swift */; };
+		BC21F52625F16BD1003F97D0 /* PodCastReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21F52425F16BD1003F97D0 /* PodCastReaderModel.swift */; };
+		BC476B1825E17FD100FD2728 /* RssConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC476B1725E17FD100FD2728 /* RssConverter.swift */; };
+		BC476B1925E17FD100FD2728 /* RssConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC476B1725E17FD100FD2728 /* RssConverter.swift */; };
+		BC476B2425E1838100FD2728 /* PodCastReaderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC476B2325E1838100FD2728 /* PodCastReaderVM.swift */; };
+		BC476B2525E1838100FD2728 /* PodCastReaderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC476B2325E1838100FD2728 /* PodCastReaderVM.swift */; };
+		BC476B2F25E1842400FD2728 /* BaseReaderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC476B2E25E1842400FD2728 /* BaseReaderVM.swift */; };
+		BC476B3025E1842400FD2728 /* BaseReaderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC476B2E25E1842400FD2728 /* BaseReaderVM.swift */; };
 		BC5D1B9125C5A8DC00E18C9B /* RssReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA163E825BDDA8B001DFDBA /* RssReaderModel.swift */; };
 		BC5D1B9625C5A8DE00E18C9B /* RssReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA163EE25BDDA9F001DFDBA /* RssReaderViewModel.swift */; };
 		BC5D1B9B25C5A8E200E18C9B /* RssReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA163F425BDDAAD001DFDBA /* RssReaderView.swift */; };
@@ -67,6 +81,13 @@
 		5909C1941B14CF5EDC0A199F /* Pods-PodCastHead (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCastHead (iOS).debug.xcconfig"; path = "Target Support Files/Pods-PodCastHead (iOS)/Pods-PodCastHead (iOS).debug.xcconfig"; sourceTree = "<group>"; };
 		8392B06C0956ED527BC002C6 /* Pods_PodCastHead__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodCastHead__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9301B7128D1E442069F55807 /* Pods-PodCastHead (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCastHead (macOS).debug.xcconfig"; path = "Target Support Files/Pods-PodCastHead (macOS)/Pods-PodCastHead (macOS).debug.xcconfig"; sourceTree = "<group>"; };
+		BC21F4F825E18722003F97D0 /* BaseRssReaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRssReaderModel.swift; sourceTree = "<group>"; };
+		BC21F50A25E18949003F97D0 /* RssEpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssEpisodeViewModel.swift; sourceTree = "<group>"; };
+		BC21F51D25F166B0003F97D0 /* PodCastRssReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastRssReaderView.swift; sourceTree = "<group>"; };
+		BC21F52425F16BD1003F97D0 /* PodCastReaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastReaderModel.swift; sourceTree = "<group>"; };
+		BC476B1725E17FD100FD2728 /* RssConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssConverter.swift; sourceTree = "<group>"; };
+		BC476B2325E1838100FD2728 /* PodCastReaderVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastReaderVM.swift; sourceTree = "<group>"; };
+		BC476B2E25E1842400FD2728 /* BaseReaderVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReaderVM.swift; sourceTree = "<group>"; };
 		BC5D1B8025C5A54F00E18C9B /* PodCastHead.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PodCastHead.entitlements; sourceTree = "<group>"; };
 		BC9A7B3225BDC4F000F934A9 /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		BC9A7B3325BDC4F000F934A9 /* PodCastHeadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastHeadApp.swift; sourceTree = "<group>"; };
@@ -153,6 +174,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BC476B1625E17F9600FD2728 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BC476B1725E17FD100FD2728 /* RssConverter.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		BC476B2225E1836400FD2728 /* PodCastRssReader */ = {
+			isa = PBXGroup;
+			children = (
+				BC476B2325E1838100FD2728 /* PodCastReaderVM.swift */,
+				BC21F52425F16BD1003F97D0 /* PodCastReaderModel.swift */,
+				BC21F51D25F166B0003F97D0 /* PodCastRssReaderView.swift */,
+			);
+			path = PodCastRssReader;
+			sourceTree = "<group>";
+		};
+		BC476B3525E1842B00FD2728 /* BaseReaderVM */ = {
+			isa = PBXGroup;
+			children = (
+				BC476B2E25E1842400FD2728 /* BaseReaderVM.swift */,
+				BC21F4F825E18722003F97D0 /* BaseRssReaderModel.swift */,
+			);
+			path = BaseReaderVM;
+			sourceTree = "<group>";
+		};
 		BC9A7B2B25BDC4EF00F934A9 = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +219,7 @@
 		BC9A7B3025BDC4F000F934A9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				BC476B1625E17F9600FD2728 /* Helper */,
 				BCA8715A25E1687700FF7C69 /* Feature */,
 				BCAC9D2325BDC965006445B0 /* Extensions */,
 				BC9A7B3325BDC4F000F934A9 /* PodCastHeadApp.swift */,
@@ -234,6 +283,7 @@
 				BCA163E825BDDA8B001DFDBA /* RssReaderModel.swift */,
 				BCA163EE25BDDA9F001DFDBA /* RssReaderViewModel.swift */,
 				BCA163F425BDDAAD001DFDBA /* RssReaderView.swift */,
+				BC21F50A25E18949003F97D0 /* RssEpisodeViewModel.swift */,
 			);
 			path = RssReader;
 			sourceTree = "<group>";
@@ -241,6 +291,8 @@
 		BCA8715A25E1687700FF7C69 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				BC476B3525E1842B00FD2728 /* BaseReaderVM */,
+				BC476B2225E1836400FD2728 /* PodCastRssReader */,
 				BCA163E725BDDA63001DFDBA /* RssReader */,
 				BCAC9D0C25BDC8D1006445B0 /* PodPlayer */,
 			);
@@ -511,19 +563,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC21F51E25F166B0003F97D0 /* PodCastRssReaderView.swift in Sources */,
 				BCA163EF25BDDA9F001DFDBA /* RssReaderViewModel.swift in Sources */,
 				BCAC9D2525BDC98B006445B0 /* View+Ext.swift in Sources */,
 				BCAC9D1D25BDC93F006445B0 /* PodPlayerViewModel.swift in Sources */,
 				BCA163F525BDDAAD001DFDBA /* RssReaderView.swift in Sources */,
+				BC476B2F25E1842400FD2728 /* BaseReaderVM.swift in Sources */,
 				BCAC9D4625BDD37D006445B0 /* ImageLoader.swift in Sources */,
 				BCAC9D3725BDC9CE006445B0 /* Feedback.swift in Sources */,
 				BCAC9D0625BDC895006445B0 /* PodPlayerView.swift in Sources */,
 				BC9A7B5F25BDC4F100F934A9 /* PodCastHeadApp.swift in Sources */,
+				BC21F50B25E18949003F97D0 /* RssEpisodeViewModel.swift in Sources */,
+				BC21F52525F16BD1003F97D0 /* PodCastReaderModel.swift in Sources */,
+				BC476B2425E1838100FD2728 /* PodCastReaderVM.swift in Sources */,
 				BCAC9D3F25BDD268006445B0 /* AsyncImage.swift in Sources */,
 				BC9A7B6325BDC4F100F934A9 /* Persistence.swift in Sources */,
 				BCA163E925BDDA8B001DFDBA /* RssReaderModel.swift in Sources */,
 				BCAC9CFF25BDC86D006445B0 /* ContentView.swift in Sources */,
+				BC21F4F925E18722003F97D0 /* BaseRssReaderModel.swift in Sources */,
 				BCAC9D1225BDC8FD006445B0 /* PodPlayerModel.swift in Sources */,
+				BC476B1825E17FD100FD2728 /* RssConverter.swift in Sources */,
 				BCAC9D3025BDC9A9006445B0 /* System.swift in Sources */,
 				BC9A7B5D25BDC4F100F934A9 /* PodCastHead.xcdatamodeld in Sources */,
 			);
@@ -533,19 +592,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC21F51F25F166B0003F97D0 /* PodCastRssReaderView.swift in Sources */,
 				BC5D1B9625C5A8DE00E18C9B /* RssReaderViewModel.swift in Sources */,
 				BCAC9D2625BDC98B006445B0 /* View+Ext.swift in Sources */,
 				BCAC9D1E25BDC93F006445B0 /* PodPlayerViewModel.swift in Sources */,
 				BC5D1B9B25C5A8E200E18C9B /* RssReaderView.swift in Sources */,
+				BC476B3025E1842400FD2728 /* BaseReaderVM.swift in Sources */,
 				BCAC9D4725BDD37D006445B0 /* ImageLoader.swift in Sources */,
 				BCAC9D3825BDC9CE006445B0 /* Feedback.swift in Sources */,
 				BCAC9D0725BDC895006445B0 /* PodPlayerView.swift in Sources */,
 				BC9A7B6025BDC4F100F934A9 /* PodCastHeadApp.swift in Sources */,
+				BC21F50C25E18949003F97D0 /* RssEpisodeViewModel.swift in Sources */,
+				BC21F52625F16BD1003F97D0 /* PodCastReaderModel.swift in Sources */,
+				BC476B2525E1838100FD2728 /* PodCastReaderVM.swift in Sources */,
 				BCAC9D4025BDD268006445B0 /* AsyncImage.swift in Sources */,
 				BC9A7B6425BDC4F100F934A9 /* Persistence.swift in Sources */,
 				BC5D1B9125C5A8DC00E18C9B /* RssReaderModel.swift in Sources */,
 				BCAC9D0025BDC86D006445B0 /* ContentView.swift in Sources */,
+				BC21F4FA25E18722003F97D0 /* BaseRssReaderModel.swift in Sources */,
 				BCAC9D1325BDC8FD006445B0 /* PodPlayerModel.swift in Sources */,
+				BC476B1925E17FD100FD2728 /* RssConverter.swift in Sources */,
 				BCAC9D3125BDC9A9006445B0 /* System.swift in Sources */,
 				BC9A7B5E25BDC4F100F934A9 /* PodCastHead.xcdatamodeld in Sources */,
 			);
