@@ -29,7 +29,7 @@ struct ContentView: View {
 
 struct SplitView: View {
     var testRss = RssReaderEpisodeModel(base: BaseRssReader(feed: URL(string: "https://buchpodcast.libsyn.com/rss")!, name: "BuchPodcast"), episodes: nil, selectedEpisode: nil)
-    var
+let podCastViewModel = PodCastReaderVM(context:PersistenceController.shared.container.viewContext )
     
     //
     var body: some View {
@@ -41,15 +41,17 @@ struct SplitView: View {
     }
     fileprivate func macOsContentView() -> some View {
         return NavigationView{
-            /*RssReaderView(viewModel: RssEpisodeViewModel(model: testRss))
+      /*     RssReaderView(viewModel: RssEpisodeViewModel(model: testRss))
                 .frame(minWidth: 250, idealWidth: 250, maxWidth: 300, maxHeight: .infinity).listStyle(SidebarListStyle()).frame(minWidth: 250, maxWidth: 350) */
-            PodCastRssReaderView(viewModel: <#PodCastReaderVM#>).environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+            PodCastRssReaderView( viewModel: podCastViewModel)
         }
         .frame(minWidth: 800, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
     }
     
     fileprivate func iosOsContentView() -> some View {
-        PodCastRssReaderView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+        return NavigationView{
+        PodCastRssReaderView( viewModel: podCastViewModel)
+        }
       //  RssReaderView(viewModel: RssEpisodeViewModel(model: testRss))
     }
 }

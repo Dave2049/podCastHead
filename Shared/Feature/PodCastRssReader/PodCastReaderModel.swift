@@ -18,3 +18,7 @@ struct PodcastReaderModel {
     var podCastModel : [RssReader]
     var newPodCast: PodCastModel?
 }
+
+enum PodCastReaderError: Error{
+    case dublicatedRSS
+}

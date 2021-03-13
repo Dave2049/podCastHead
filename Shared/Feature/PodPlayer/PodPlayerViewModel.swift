@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import AVKit
+import CoreData
 class PodPlayerViewModel: ObservableObject{
     @Published private(set) var state : AppState
     
@@ -83,12 +84,14 @@ extension PodPlayerViewModel{
         case play(PodPlayerModel)
         case stop(PodPlayerModel)
         case error(Error)
+        case saveStatus(PodPlayerModel)
     }
     
     enum Event {
         case onLoad(PodPlayerModel)
         case onPlay(PodPlayerModel)
         case onStop(PodPlayerModel)
+        case onUpdateTime(PodPlayerModel)
         case onError(Error)
     }
 }
@@ -99,8 +102,15 @@ extension PodPlayerViewModel{
             switch event {
             case .onStop(let model):
                 return .stop(model)
+            case .onUpdateTime(let model):
+                return .saveStatus(model)
             default:
                 return state
+            }
+        case .saveStatus(let model):
+            switch event {
+            default:
+                return .play(model)
             }
             
         case .stop:
@@ -140,6 +150,49 @@ extension PodPlayerViewModel{
              .catch { Just(handleAVerror(error: $0, model: model)) }
              .eraseToAnyPublisher()
      }
+    }
+    
+    static func updateTime(context: NSManagedObjectContext) -> Feedback<AppState, Event> {
+        Feedback { (state: AppState) -> AnyPublisher<Event, Never> in
+            guard case .saveStatus(let model) = state else { return Empty().eraseToAnyPublisher() }
+            return propagateTime(context: context, model: model)
+                .map({Event.onPlay(model)})
+                .catch { Just(handleAVerror(error: $0, model: model)) }
+                .eraseToAnyPublisher()
+        }
+    }
+    
+    static func propagateTime(context: NSManagedObjectContext, model: PodPlayerModel) -> AnyPublisher<Void, Error>{
+        return Future{ promise in
+           
+            let podcastEpisode = PodCastEpisode(context: context)
+            do{
+                
+                guard let currentItem = model.audioPlayer.currentItem else{
+                throw RssExceptions.noEpisodes
+                }
+         /*       guard let podCast = PodCastDBHelper.fetchPodCastByFeed(context: context, rssFeed: model.rssFeed ?? "-") else {
+                    
+                }
+                
+                podcastEpisode.podCast = model. */
+                podcastEpisode.guid = model.guid
+                podcastEpisode.timePlayed = Int16(currentItem.currentTime().second)
+            
+                if Double(currentItem.duration.second) * 0.9 < Double(currentItem.currentTime().second){
+                    podcastEpisode.completed = true
+                }else{
+                    podcastEpisode.completed = false
+                }
+                
+            try context.save()
+            promise(.success(Void()))
+            } catch let error {
+                promise(.failure(error))
+            }
+           
+            
+        }.eraseToAnyPublisher()
     }
     
     static func handleAVerror(error: Error, model: PodPlayerModel) -> Event{
@@ -182,6 +235,11 @@ enum AVError : Error{
     case failureLoadingEpisode
     case episodeNotReady
 }
+
+enum PodPlayerError: Error{
+    case errorFetchingDB
+}
+
 extension CMTime {
     var roundedSeconds: TimeInterval {
         return seconds.rounded()
@@ -217,3 +275,4 @@ extension CMTime {
     }
     
 }
+

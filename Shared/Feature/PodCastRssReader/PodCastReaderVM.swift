@@ -29,7 +29,8 @@ class PodCastReaderVM: ObservableObject{
             scheduler: RunLoop.main,
             feedbacks: [
                 Self.loadFeed(context: context),
-                Self.userInput(input: input.eraseToAnyPublisher())
+                Self.userInput(input: input.eraseToAnyPublisher()),
+                Self.savePodcast(context: context)
             ]
         )
         .assign(to: \.state, on: self)
@@ -46,9 +47,6 @@ class PodCastReaderVM: ObservableObject{
     }
 
     func selectEpisode(model: PodcastReaderModel, episode: PodPlayerModel){
-    
-        
-        
         send(event: .onSelectEpisode(model))
     }
     
@@ -69,6 +67,7 @@ extension PodCastReaderVM{
         case load
         case error(Error)
         case savingPodCast(PodcastReaderModel)
+        
     }
     
     enum Event {
@@ -118,6 +117,9 @@ extension PodCastReaderVM{
     static func savePodcast(context: NSManagedObjectContext) -> Feedback<AppState, Event> {
      Feedback { (state: AppState) -> AnyPublisher<Event, Never> in
         guard case .savingPodCast(let model) = state else { return Empty().eraseToAnyPublisher() }
+     
+        
+        
         return propagateCategory(context: context, model: model)
             .map({Event.onSavedPodCast($0)})
             .catch { Just(Event.onError($0)) }
@@ -129,17 +131,24 @@ extension PodCastReaderVM{
     
     static func propagateCategory(context: NSManagedObjectContext, model: PodcastReaderModel) -> AnyPublisher<PodcastReaderModel, Error>{
         return Future{ promise in
-        let podcast = PodCast(context: context)
+           
+            let podcast = PodCast(context: context)
             do{
+                
+                
             guard let newPodcast = model.newPodCast else{
                 throw RssExceptions.noEpisodes
             }
+            guard verifyRssFeed(context: context, rssFeed: newPodcast.rssFeed) else {
+                throw PodCastReaderError.dublicatedRSS
+            }
             podcast.name = newPodcast.podCastName
-            podcast.rssFeed = newPodcast.podCastName
+            podcast.rssFeed = newPodcast.rssFeed
+            
             
             var tmpModel = model
-           
-            guard let url = URL(string: newPodcast.podCastName) else {
+           // TODO: url error
+            guard let url = URL(string: newPodcast.rssFeed) else {
                throw RssExceptions.noRssFormat
             }
             let podCastContent = try parseFeed(feed: url)
@@ -167,11 +176,24 @@ extension PodCastReaderVM{
      }
     }
      
+    static func verifyRssFeed(context: NSManagedObjectContext, rssFeed: String) -> Bool{
+       
+        
+        do {
+            let fetchCount = try PodCastDBHelper.fetchPodCastByFeed(context: context, rssFeed: rssFeed).count
+            return fetchCount == 0
+
+        }catch{
+           return false
+        }
+    }
+    
+    
     
     static func fetchPodcasts(context: NSManagedObjectContext) -> AnyPublisher<PodcastReaderModel, Error>{
         return Future { promise in
          do {
-        let podCastsFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Podcast")
+        let podCastsFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "PodCast")
             let podcasts = try context.fetch(podCastsFetch) as! [PodCast]
             
             let podCastsModel = try podcasts.filter({$0.rssFeed != nil})
@@ -201,26 +223,25 @@ extension PodCastReaderVM{
      
      static func parseRSSfeed(rssFeed: RSSFeed, orgFeed: URL) throws -> RssReader{
         
-         
-             // Grab the parsed feed directly as an optional rss, atom or json feed object
+            // Grab the parsed feed directly as an optional rss, atom or json feed object
         guard let title = rssFeed.title else{
             throw RssExceptions.noTitle
         }
-        
-        
+       
         let podcast = PodCastModel(podCastName: title, rssFeed: orgFeed.absoluteString, description: rssFeed.description, imageUrl: getImageURL(image: rssFeed.image?.url, feedImage: nil))
-            
-             
-             guard let items = rssFeed.items else {
+        
+        
+        
+        guard let items = rssFeed.items else {
                  throw RssExceptions.noEpisodes
              }
-             
         
         
-             let episodes : [PodPlayerModel] = items.compactMap{
-                 debugPrint( ($0.iTunes?.iTunesDuration ?? 1) / 60)
-                return PodPlayerModel(imageUrl: getImageURL(image: $0.iTunes?.iTunesImage?.attributes?.href, feedImage: rssFeed.image?.url), mp3Url: URL(string: $0.enclosure?.attributes?.url ?? "google.de")!, text: $0.title! , pub: $0.pubDate, player: RssReaderViewModel.avPlayer,description: $0.description ?? "", duration: $0.iTunes?.iTunesDuration )
-           
+             let episodes : [PodPlayerModel] = try items.compactMap{
+                guard let guid = $0.guid?.value else {
+                    throw RssExceptions.noRssFormat
+                }
+                return PodPlayerModel(imageUrl: getImageURL(image: $0.iTunes?.iTunesImage?.attributes?.href, feedImage: rssFeed.image?.url), mp3Url: URL(string: $0.enclosure?.attributes?.url ?? "google.de")!, text: $0.title! , pub: $0.pubDate, player: RssReaderViewModel.avPlayer,description: $0.description ?? "", duration: $0.iTunes?.iTunesDuration, guid: guid, rssFeed: orgFeed.absoluteString)
              }
         return RssReader(podcast: podcast, feed: orgFeed, name: title, episodes: episodes, selectedEpisode: nil)
      }

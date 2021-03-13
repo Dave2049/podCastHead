@@ -16,7 +16,7 @@ struct PodPlayerView: View {
     var body: some View {
        
         switch viewModel.state {
-            case .play(let model), .stop(let model), .buffering(let model):
+        case .play(let model), .stop(let model), .buffering(let model), .saveStatus(let model):
                 return contentMaximised(model:model).frame(maxWidth: .infinity, maxHeight: .infinity).eraseToAnyView()
             case .error:
                 return Text("failed to Load episode").frame(maxWidth: .infinity, maxHeight: .infinity).eraseToAnyView()
@@ -24,20 +24,6 @@ struct PodPlayerView: View {
         
     }
     
-        func content() -> some View {
-           
-            switch viewModel.state {
-                case .play(let model):
-                    return playView(model: model).eraseToAnyView()
-                case .stop(let model):
-                    return stopView(model: model).eraseToAnyView()
-                case .buffering(let model):
-                    return bufferingView(title: model.title).eraseToAnyView()
-                case .error:
-                    return Text("failed to Load episode").eraseToAnyView()
-            }
-            
-        }
     
     
     

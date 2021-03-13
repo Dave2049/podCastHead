@@ -1,6 +1,6 @@
 PODS:
   - FeedKit (9.1.2)
-  - SwiftAudioPlayer (2.11.0)
+  - SwiftAudioPlayer (2.12.0)
   - URLImage (2.2.3):
     - URLImage/Common (= 2.2.3)
     - URLImage/DownloadManager (= 2.2.3)
@@ -34,9 +34,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   FeedKit: 71653273ab08e618cd6fd1301ca08fc02dca6a9e
-  SwiftAudioPlayer: c92ea19b45ef2309d790f34970cbe5b0b49444a1
+  SwiftAudioPlayer: 8f69d2154c7b578f24f909982e1040b6c61c23cc
   URLImage: 1eeb43e09cd736008da21944ba51d433ef41c09d
 
 PODFILE CHECKSUM: e3e1167ccf0a8d1cf11bbe5421abf47f439d0c46
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

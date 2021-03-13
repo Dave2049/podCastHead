@@ -10,7 +10,7 @@ import SwiftUI
 struct RssReaderView: View {
     @ObservedObject var viewModel : RssReaderViewModel
  //   @EnvironmentObject var reader: EnvReader
-    
+    @State var expandDescription = false
     var body: some View {
         content()
     }
@@ -30,7 +30,7 @@ struct RssReaderView: View {
         VStack{
            
             #if os(iOS)
-            Text(model.name).font(.title)
+            
             if let selectedEpisode = model.selectedEpisode{
                 EmptyView()
                 .sheet(isPresented: $viewModel.details){
@@ -56,7 +56,7 @@ struct RssReaderView: View {
                     
                 }
         
-        }
+        }.navigationBarTitle(model.name)
     }
     
     func loadingView() -> some View{

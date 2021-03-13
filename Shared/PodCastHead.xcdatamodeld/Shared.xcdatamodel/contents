@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-    </entity>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PodCast" representedClassName="PodCast" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="rssFeed" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="PodCastEpisode" representedClassName="PodCastEpisode" syncable="YES" codeGenerationType="class">
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="guid" optional="YES" attributeType="String"/>
+        <attribute name="timePlayed" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="podCast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PodCast"/>
+    </entity>
     <elements>
-        <element name="PodCast" positionX="-63" positionY="-18" width="128" height="59"/>
-        <element name="Item" positionX="-63" positionY="0" width="128" height="44"/>
+        <element name="PodCast" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="PodCastEpisode" positionX="-63" positionY="0" width="128" height="103"/>
     </elements>
 </model>
